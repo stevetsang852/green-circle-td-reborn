@@ -16,7 +16,7 @@ Green Circle TD 成功的核心不是「迷宮建造」，而是：
 - Build Optimization（建塔優化）
 - 經濟管理
 - 隨機性
-- 多人競技
+- 多人合作
 - 長時間成長感
 - 高 Replayability
 
@@ -29,9 +29,10 @@ Green Circle TD 成功的核心不是「迷宮建造」，而是：
 **Green Circle TD + Legion TD + Auto Battler 混合版**
 
 - 保留 Green TD 的建塔樂趣
-- 加入 PVP 派兵機制（Legion TD 風）
+- 先做多人組隊合作通關（最多 4 人）
 - 可選 Auto Battler 模式（自動戰鬥）
 - 適合瀏覽器、手機、Telegram Mini App
+- **多人競技（PVP）先不做**
 
 ---
 
@@ -47,6 +48,7 @@ Green Circle TD 成功的核心不是「迷宮建造」，而是：
 
 **功能：**
 - 單人
+- 多人組隊合作（最多 4 人通關，Client Side 預留）
 - 固定路線地圖（20×20 Grid 或蛇形路徑）
 - 5 種基礎塔（Arrow / Fire / Ice / Poison / Tesla）
 - 簡單合成系統
@@ -54,11 +56,12 @@ Green Circle TD 成功的核心不是「迷宮建造」，而是：
 - 每 5 波 Roguelike Buff 選擇
 - 本地存檔（Gold / XP / Unlock）
 - 排行榜接口預留
-- 多人接口預留（MockGameServer）
+- 多人接口預留（MockGameServer，支援合作房間）
 
 **不做：**
 - 不做完整迷宮建造（手機難玩）
-- 不做真實後端（先做 Client）
+- 不做真實後端（先做 Client Side）
+- 不做多人競技 / PVP（先做合作通關）
 - 不做 NFT / Web3（先 Free To Play）
 
 ---
@@ -147,15 +150,18 @@ export class LocalPlayerApi implements PlayerApi {
 
 ---
 
-## 未來多人模式
+## 多人模式
 
-### Co-op
-4 人守城（左上 / 右上 / 左下 / 右下），共享血量、Buff、Boss。
+### 組隊合作（優先做，Client Side 先實作）
+- 最多 4 人合作通關
+- 可分區域（例如左上 / 右上 / 左下 / 右下）
+- 共享：血量、Buff、Boss、資源
+- 目標：一起守城到最後
+- 目前先用 MockGameServer 做本地模擬，之後再接 WebSocket
 
-### PVP（超推薦，Legion TD 風）
-- 過關：+50 金 +1 木
-- 木材可派怪：狼人、石像鬼、龍、Boss
-- 攻擊對手
+### PVP（先不做）
+- 競技派兵機制（Legion TD 風）延後再考慮
+- 目前專注合作通關體驗
 
 ---
 
@@ -206,7 +212,8 @@ Redis + PostgreSQL
 3. 經濟系統 + 升級
 4. Roguelike Buff 選擇畫面
 5. LocalStorage 存檔 + API 抽象層
-6. 接 Spring Boot + WebSocket
+6. 多人合作 Mock 實作（Client Side）
+7. 接 Spring Boot + WebSocket
 
 ---
 
@@ -215,16 +222,16 @@ Redis + PostgreSQL
 **Green Circle TD Reborn**
 
 - Pixel 風格
-- Single Player First
+- Single Player + 多人組隊合作（最多 4 人）
 - Mobile Support
 - 20 分鐘一局
 - Roguelike Buff
 - Leaderboard
-- 之後可接多人 / PVP / Telegram Mini App
+- 先 Client Side，之後再接後端
 
 技術棧完全符合現有 Frontend TypeScript + Backend Java 背景。
 
 ---
 
-> 先做可玩的 Client 版，之後再接後端。  
-> 不要一開始就做太完整，先驗證核心玩法。
+> 先做可玩的 Client 版（含合作預留），之後再接後端。  
+> 不要一開始就做太完整，先驗證核心玩法與合作體驗。
